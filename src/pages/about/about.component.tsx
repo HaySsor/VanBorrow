@@ -1,5 +1,5 @@
 import styled from './about.module.scss';
-import bgImg from '../../assets/image 54.png';
+import bgImg from '../../assets/image 55.png';
 import {Link} from 'react-router-dom';
 
 export const AboutPage = () => {

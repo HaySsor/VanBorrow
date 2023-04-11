@@ -4,7 +4,7 @@ import {Navigation} from './components/navigation/navigation.component';
 
 function App() {
   return (
-    <main>
+    <main className={styled.wrapper}>
       <Navigation />
       <Outlet />
     </main>

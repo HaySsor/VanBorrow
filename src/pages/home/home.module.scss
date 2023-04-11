@@ -8,6 +8,10 @@
   min-height: 350px;
   color: white;
   padding: 45px 23px;
+  display: grid;
+  place-items: center;
+  border-radius: 15px;
+  
   h1 {
     font-weight: 700;
     font-size: 2.25rem;
@@ -25,7 +29,7 @@
     background-color: #ff8c38;
     border: none;
     width: 100%;
-    margin-top: 27px;
+    max-width: 400px;
     padding-block: 0.75rem;
     color: white;
     font-weight: 700;
