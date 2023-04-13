@@ -74,12 +74,13 @@ export function makeServer({environment = 'test'} = {}) {
       this.namespace = 'api';
 
       this.get('/vans', (schema, request) => {
-        return schema.vans.all();
+        console.log(schema);
+        return schema.all('vans');
       });
 
       this.get('/vans/:id', (schema, request) => {
         const id = request.params.id;
-        return schema.vans.find(id);
+        return schema.find('vans', id);
       });
     },
   });
