@@ -4,7 +4,6 @@ import {useFetch} from '../../hooks/useFetch';
 import {useEffect, useState} from 'react';
 import {VanType} from '../../types/vanType';
 
-const API_URL = '/api/vans/';
 
 export const VanPage = () => {
   const [van, setVan] = useState<VanType | null>(null);
@@ -14,7 +13,7 @@ export const VanPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const vanData = await getData<{vans: VanType}>(`${API_URL}${id}`);
+      const vanData = await getData<{vans: VanType}>(`/api/vans/${id}`);
       setVan(vanData.vans);
     };
     fetchData();

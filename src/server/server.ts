@@ -70,6 +70,7 @@ createServer({
 
   routes() {
     this.namespace = 'api';
+    this.logging = false;
 
     this.get('/vans', (schema, request) => {
       return schema.all('vans');
@@ -77,10 +78,7 @@ createServer({
 
     this.get('/vans/:id', (schema, request) => {
       const id = request.params.id;
-      return schema.find('user', id);
+      return schema.find('vans', id);
     });
-
-    this.passthrough('https://api.netlify.com/**');
-    this.passthrough('https://*.netlify.com/**');
   },
 });
