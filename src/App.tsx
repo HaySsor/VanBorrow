@@ -5,8 +5,12 @@ import {Navigation} from './components/navigation/navigation.component';
 function App() {
   return (
     <main className={styled.wrapper}>
-      <Navigation />
-      <Outlet />
+      <header>
+        <Navigation />
+      </header>
+      <main>
+        <Outlet />
+      </main>
     </main>
   );
 }

@@ -4,7 +4,6 @@ import {useFetch} from '../../hooks/useFetch';
 import {useEffect, useState} from 'react';
 import {VanType} from '../../types/vanType';
 
-
 export const VanPage = () => {
   const [van, setVan] = useState<VanType | null>(null);
 
@@ -24,18 +23,20 @@ export const VanPage = () => {
       {van ? (
         <div className={styled.vanDetail}>
           <img src={van.imageUrl} />
-          <i
-            className={`${styled.vanType} ${styled[van.type]} ${
-              styled.selected
-            }`}>
-            {van.type}
-          </i>
-          <h2>{van.name}</h2>
-          <p className={styled.vanPrice}>
-            <span>${van.price}</span>/day
-          </p>
-          <p className={styled.info}>{van.description}</p>
-          <button className={styled.linkButton}>Rent this van</button>
+          <div className={styled.infoBox}>
+            <i
+              className={`${styled.vanType} ${styled[van.type]} ${
+                styled.selected
+              }`}>
+              {van.type}
+            </i>
+            <h2>{van.name}</h2>
+            <p className={styled.vanPrice}>
+              <span>${van.price}</span>/day
+            </p>
+            <p className={styled.info}>{van.description}</p>
+            <button className={styled.linkButton}>Rent this van</button>
+          </div>
         </div>
       ) : (
         <h2>Loading...</h2>

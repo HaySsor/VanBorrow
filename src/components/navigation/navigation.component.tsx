@@ -8,6 +8,9 @@ export const Navigation = () => {
         #VanBorrow
       </Link>
       <div className={styled.linkBox}>
+        <Link className={styled.link} to='/host'>
+          Host
+        </Link>
         <Link className={styled.link} to='/about'>
           About
         </Link>

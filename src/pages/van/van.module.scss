@@ -1,13 +1,15 @@
 .vanDetailContainer {
   padding: 27px;
-
   .vanDetail {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     color: #161616;
     gap: 15px;
+    justify-content: center;
+    align-items: center;
 
     img {
+      max-width: 500px;
       border-radius: 5px;
       margin-top: 20px;
     }
@@ -26,8 +28,15 @@
         font-size: 1.5rem;
       }
     }
-    .info{
-        font-size: 1.4rem;
+    .infoBox {
+      align-self: center;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 400px;
+    }
+    .info {
+      font-size: 1.4rem;
     }
     .linkButton {
       padding: 10px 20px;
@@ -37,6 +46,8 @@
       color: white;
       font-size: 1.125rem;
       font-size: 1.5rem;
+      max-width: 400px;
+      margin: 0 auto;
     }
     .vanType {
       height: 34px;
