@@ -3,11 +3,7 @@ import ReactDOM from 'react-dom/client';
 import {RouterProvider} from 'react-router-dom';
 import {router} from './router/router';
 import './index.css';
-import {makeServer} from './server/server.js';
-
-if (process.env.NODE_ENV === 'development') {
-  makeServer({environment: 'development'});
-}
+import './server/server';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
