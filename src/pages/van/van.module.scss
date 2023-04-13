@@ -1,0 +1,63 @@
+.vanDetailContainer {
+  padding: 27px;
+
+  .vanDetail {
+    display: flex;
+    flex-direction: column;
+    color: #161616;
+    gap: 15px;
+
+    img {
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    i {
+      align-self: flex-start;
+    }
+    .vanPrice {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+      span {
+        font-weight: 700;
+        font-size: 1.5rem;
+      }
+    }
+    .info{
+        font-size: 1.4rem;
+    }
+    .linkButton {
+      padding: 10px 20px;
+      background-color: #ff8c38;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 1.125rem;
+      font-size: 1.5rem;
+    }
+    .vanType {
+      height: 34px;
+      padding: 6px 26px;
+      font-weight: 600;
+      font-style: normal;
+      border: none;
+      border-radius: 5px;
+      background-color: #ffead0;
+      color: #fffdfd;
+      transition: 200ms all cubic-bezier(0.4, 0, 0.2, 1);
+      font-size: 1.3rem;
+    }
+    .simple {
+      background-color: #e17654;
+    }
+    .rugged {
+      background-color: #115e59;
+    }
+    .luxury {
+      background-color: #161616;
+    }
+  }
+}
