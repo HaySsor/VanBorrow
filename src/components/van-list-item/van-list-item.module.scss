@@ -1,0 +1,42 @@
+.VanItemBox {
+  a {
+    color: #161616;
+    text-decoration: none;
+  }
+  img {
+    max-width: 100%;
+    border-radius: 5px;
+  }
+  button {
+    margin-right: 20px;
+    cursor: pointer;
+  }
+  .vanInfo {
+    margin: 10px;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    display: grid;
+    gap: 5px;
+  }
+  .vanType {
+    height: 34px;
+    padding: 6px 26px;
+    font-weight: 600;
+    font-style: normal;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffead0;
+    color: #fffdfd;
+    transition: 200ms all cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1.3rem;
+  }
+  .simple {
+    background-color: #e17654;
+  }
+  .rugged {
+    background-color: #115e59;
+  }
+  .luxury {
+    background-color: #161616;
+  }
+}
