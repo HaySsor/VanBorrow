@@ -1,8 +1,7 @@
 import {createServer, Model} from 'miragejs';
 
-export function makeServer({environment = 'test'} = {}) {
-  let server = createServer({
-    environment,
+export function makeServer() {
+  return createServer({
     models: {
       vans: Model,
     },
@@ -80,10 +79,11 @@ export function makeServer({environment = 'test'} = {}) {
 
       this.get('/vans/:id', (schema, request) => {
         const id = request.params.id;
-        return schema.find('vans', id);
+        return schema.find('user', id);
       });
+
+      this.passthrough('https://api.netlify.com/**');
+      this.passthrough('https://*.netlify.com/**');
     },
   });
-
-  return server;
 }
