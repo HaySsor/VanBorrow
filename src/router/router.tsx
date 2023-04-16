@@ -8,6 +8,8 @@ import {HostPage} from '../pages/host/host.component';
 import {Dashboard} from '../layout/dashboard/dashboard.component';
 import {Income} from '../layout/income/income.component';
 import {Reviews} from '../layout/Reviews/reviews.component';
+import {YourVans} from '../layout/your-vans/your-vans.components';
+import {DetailsVans} from '../layout/details-van/details-van.component';
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +43,14 @@ export const router = createBrowserRouter([
           {
             path: 'income',
             element: <Income />,
+          },
+          {
+            path: 'your-vans',
+            element: <YourVans />,
+          },
+          {
+            path: 'your-vans/:id',
+            element: <DetailsVans />,
           },
           {
             path: 'reviews',

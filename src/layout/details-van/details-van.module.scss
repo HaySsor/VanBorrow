@@ -1,0 +1,48 @@
+.container {
+  background-color: white;
+  padding: 24px;
+  margin: 30px 26px;
+  .detail {
+    display: flex;
+    align-items: center;
+
+    > img {
+      height: 160px;
+      border-radius: 5px;
+      margin-right: 20px;
+    }
+    .textBox {
+      > h3 {
+        margin-top: 24px;
+        margin-bottom: 5px;
+        font-size: 26px;
+        font-weight: 700;
+      }
+      > h4 {
+        font-size: 20px;
+        margin-block: 0;
+      }
+    }
+    .vanType {
+      height: 34px;
+      padding: 6px 26px;
+      font-weight: 600;
+      font-style: normal;
+      border: none;
+      border-radius: 5px;
+      background-color: #ffead0;
+      color: #fffdfd;
+      transition: 200ms all cubic-bezier(0.4, 0, 0.2, 1);
+      font-size: 1.3rem;
+    }
+    .simple {
+      background-color: #e17654;
+    }
+    .rugged {
+      background-color: #115e59;
+    }
+    .luxury {
+      background-color: #161616;
+    }
+  }
+}

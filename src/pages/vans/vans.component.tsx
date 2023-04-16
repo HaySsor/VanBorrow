@@ -18,6 +18,7 @@ export const VansPage = () => {
     fetchData();
   }, []);
 
+  
   return (
     <div className={styled.vanListContainer}>
       <div className={styled.vanList}>

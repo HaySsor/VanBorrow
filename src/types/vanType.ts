@@ -5,4 +5,5 @@ export type VanType = {
   description: string;
   imageUrl: string;
   type: string;
+  hostID?: string;
 };

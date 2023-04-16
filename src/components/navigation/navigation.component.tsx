@@ -1,23 +1,28 @@
 import styled from './navigation.module.scss';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
+import {useNavActiveClass} from '../../hooks/useNavActiveClass';
 
 export const Navigation = () => {
+  const [activeClassName] = useNavActiveClass(styled);
+
   return (
     <nav className={styled.nav}>
-      <Link className={`${styled.logo}`} to='/'>
+      <NavLink className={`${styled.logo}`} to='/'>
         #VanBorrow
-      </Link>
+      </NavLink>
       <div className={styled.linkBox}>
-        <Link className={styled.link} to='/host'>
+        <NavLink className={activeClassName} to='/host'>
           Host
-        </Link>
-        <Link className={styled.link} to='/about'>
+        </NavLink>
+        <NavLink className={activeClassName} to='/about'>
           About
-        </Link>
-        <Link className={styled.link} to='/vans'>
+        </NavLink>
+        <NavLink className={activeClassName} to='/vans'>
           Vans
-        </Link>
+        </NavLink>
       </div>
     </nav>
   );
 };
+
+//  `
