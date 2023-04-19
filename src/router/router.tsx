@@ -10,6 +10,9 @@ import {Income} from '../layout/income/income.component';
 import {Reviews} from '../layout/Reviews/reviews.component';
 import {YourVans} from '../layout/your-vans/your-vans.components';
 import {DetailsVans} from '../layout/details-van/details-van.component';
+import {YourVansItemInfo} from '../components/your-vans-item-info/your-vans-item-info.component';
+import {YourVansItemPrice} from '../components/your-vans-item-price/your-vans-item-price.component';
+import {YourVansItemPhoto} from '../components/your-vans-item-photo/your-vans-item-photo.component';
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +54,20 @@ export const router = createBrowserRouter([
           {
             path: 'your-vans/:id',
             element: <DetailsVans />,
+            children: [
+              {
+                index: true,
+                element: <YourVansItemInfo />,
+              },
+              {
+                path: 'price',
+                element: <YourVansItemPrice />,
+              },
+              {
+                path: 'photo',
+                element: <YourVansItemPhoto />,
+              },
+            ],
           },
           {
             path: 'reviews',

@@ -2,14 +2,21 @@
   background-color: white;
   padding: 24px;
   margin: 30px 26px;
+  display: grid;
+  place-items: center;
+
   .detail {
+    justify-self: stretch;
     display: flex;
     align-items: center;
+    justify-content: space-around;
 
     > img {
       height: 160px;
       border-radius: 5px;
       margin-right: 20px;
+      aspect-ratio: 1.5/1;
+      object-fit: cover;
     }
     .textBox {
       > h3 {
@@ -44,5 +51,33 @@
     .luxury {
       background-color: #161616;
     }
+  }
+}
+
+.nav {
+  display: flex;
+  margin-block: 25px;
+  a {
+    text-decoration: none;
+    color: #4d4d4d;
+    font-weight: 500;
+    padding: 5px 20px;
+    font-size: 1.2rem;
+    &:first-of-type {
+      text-decoration: none;
+      color: #4d4d4d;
+      font-weight: 500;
+      padding: 5px 15px;
+      margin-left: -15px;
+    }
+    :hover {
+      color: #161616;
+      text-decoration: underline;
+      font-weight: 700;
+    }
+  }
+  .active {
+    border-radius: 15px;
+    box-shadow: 0 7px 10px rgba(0, 0, 0, 0.2);
   }
 }

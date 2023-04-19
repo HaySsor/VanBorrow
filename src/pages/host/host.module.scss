@@ -3,7 +3,8 @@
   justify-content: flex-end;
   margin-top: 20px;
   .active {
-    border-bottom: 1px solid #4d4d4d;
+    border-radius: 15px;
+    box-shadow: 0 7px 10px rgba(0, 0, 0, 0.2);
   }
   a {
     text-decoration: none;

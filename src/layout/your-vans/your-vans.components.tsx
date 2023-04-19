@@ -4,6 +4,7 @@ import type {VanType} from '../../types/vanType';
 import {useFetch} from '../../hooks/useFetch';
 import {YourVansItem} from '../../components/your-vans-item/your-vans-item.component';
 
+
 const API_LINK = '/api/host/your-vans';
 
 export const YourVans = () => {
