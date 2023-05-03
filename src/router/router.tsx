@@ -13,11 +13,13 @@ import {DetailsVans} from '../layout/details-van/details-van.component';
 import {YourVansItemInfo} from '../components/your-vans-item-info/your-vans-item-info.component';
 import {YourVansItemPrice} from '../components/your-vans-item-price/your-vans-item-price.component';
 import {YourVansItemPhoto} from '../components/your-vans-item-photo/your-vans-item-photo.component';
+import {ErrorPage} from '../pages/error/error.component';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,

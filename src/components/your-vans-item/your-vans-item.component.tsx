@@ -9,7 +9,7 @@ type PropType = {
 export const YourVansItem = ({van}: PropType) => {
   const {id, name, imageUrl, price} = van;
   return (
-    <Link to={`/host/your-vans/${id}`} key={id} className={styled.vanWrapper}>
+    <Link to={`${id}`} key={id} className={styled.vanWrapper}>
       <div className={styled.van} key={id}>
         <img src={imageUrl} alt={`Photo of ${name}`} />
         <div className={styled.vanInfo}>

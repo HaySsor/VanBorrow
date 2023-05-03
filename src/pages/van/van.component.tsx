@@ -1,4 +1,4 @@
-import {useParams} from 'react-router-dom';
+import {useParams, useLocation, Link} from 'react-router-dom';
 import styled from './van.module.scss';
 import {useFetch} from '../../hooks/useFetch';
 import {useEffect, useState} from 'react';
@@ -6,9 +6,9 @@ import {VanType} from '../../types/vanType';
 
 export const VanPage = () => {
   const [van, setVan] = useState<VanType | null>(null);
-
   const [getData] = useFetch();
   const {id} = useParams();
+  const {state} = useLocation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,8 +18,14 @@ export const VanPage = () => {
     fetchData();
   }, []);
 
+  const search = state?.search || '';
+  const type = state?.type || 'all';
+
   return (
     <div className={styled.vanDetailContainer}>
+      <Link to={`..?${search}`} relative='path' className={styled.backButton}>
+        &larr; <span>Back to {type} Vans</span>
+      </Link>
       {van ? (
         <div className={styled.vanDetail}>
           <img src={van.imageUrl} />

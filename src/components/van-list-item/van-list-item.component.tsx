@@ -4,14 +4,18 @@ import {Link} from 'react-router-dom';
 
 type PropsType = {
   van: VanType;
+  searchParams: URLSearchParams;
+  typeFilter: string | null;
 };
 
-export const VanListItem = ({van}: PropsType) => {
+export const VanListItem = ({van, searchParams, typeFilter}: PropsType) => {
   const {id, name, price, type, imageUrl} = van;
 
   return (
     <div className={styled.VanItemBox}>
-      <Link to={`/vans/${id}`}>
+      <Link
+        to={`${id}`}
+        state={{search: searchParams.toString(), type: typeFilter}}>
         <img src={imageUrl} />
         <div className={styled.vanInfo}>
           <h3>{name}</h3>
