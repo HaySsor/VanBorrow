@@ -2,7 +2,7 @@ import {createBrowserRouter} from 'react-router-dom';
 import App from '../App';
 import {AboutPage} from '../pages/about/about.component';
 import {HomePage} from '../pages/home/home.component';
-import {VansPage} from '../pages/vans/vans.component';
+import {VansPage, loader as vansLoader} from '../pages/vans/vans.component';
 import {VanPage} from '../pages/van/van.component';
 import {HostPage} from '../pages/host/host.component';
 import {Dashboard} from '../layout/dashboard/dashboard.component';
@@ -32,6 +32,7 @@ export const router = createBrowserRouter([
       {
         path: 'vans',
         element: <VansPage />,
+        loader: vansLoader,
       },
       {
         path: 'vans/:id',
