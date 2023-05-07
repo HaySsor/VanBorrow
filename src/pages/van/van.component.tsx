@@ -1,22 +1,38 @@
-import {useParams, useLocation, Link} from 'react-router-dom';
+import {
+  useLocation,
+  Link,
+  useLoaderData,
+  LoaderFunction,
+  Params,
+} from 'react-router-dom';
 import styled from './van.module.scss';
 import {useFetch} from '../../hooks/useFetch';
-import {useEffect, useState} from 'react';
 import {VanType} from '../../types/vanType';
 
-export const VanPage = () => {
-  const [van, setVan] = useState<VanType | null>(null);
+const fetchData = async (id: string) => {
   const [getData] = useFetch();
-  const {id} = useParams();
-  const {state} = useLocation();
+  const vansData = await getData<{vans: VanType[]}>(`/api/vans/${id}`);
+  return vansData.vans;
+};
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const vanData = await getData<{vans: VanType}>(`/api/vans/${id}`);
-      setVan(vanData.vans);
-    };
-    fetchData();
-  }, []);
+type loaderProps = {
+  params: Params<string>;
+};
+
+export const loader: LoaderFunction = async ({params}: loaderProps) => {
+  if (!params.id) {
+    return;
+  }
+  try {
+    return await fetchData(params.id);
+  } catch (err) {
+    return await fetchData(params.id);
+  }
+};
+
+export const VanPage = () => {
+  const {state} = useLocation();
+  const van = useLoaderData() as VanType;
 
   const search = state?.search || '';
   const type = state?.type || 'all';
