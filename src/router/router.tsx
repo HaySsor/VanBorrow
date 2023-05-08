@@ -1,4 +1,9 @@
-import {createBrowserRouter} from 'react-router-dom';
+import {
+  createBrowserRouter,
+  LoaderFunction,
+  Params,
+  redirect,
+} from 'react-router-dom';
 import App from '../App';
 import {AboutPage} from '../pages/about/about.component';
 import {HomePage} from '../pages/home/home.component';
@@ -8,13 +13,20 @@ import {HostPage} from '../pages/host/host.component';
 import {Dashboard} from '../layout/dashboard/dashboard.component';
 import {Income} from '../layout/income/income.component';
 import {Reviews} from '../layout/Reviews/reviews.component';
-import {YourVans} from '../layout/your-vans/your-vans.components';
-import {DetailsVans} from '../layout/details-van/details-van.component';
+import {
+  YourVans,
+  loader as yourVansLoader,
+} from '../layout/your-vans/your-vans.components';
+import {
+  DetailsVans,
+  loader as detailsVansLoader,
+} from '../layout/details-van/details-van.component';
 import {YourVansItemInfo} from '../components/your-vans-item-info/your-vans-item-info.component';
 import {YourVansItemPrice} from '../components/your-vans-item-price/your-vans-item-price.component';
 import {YourVansItemPhoto} from '../components/your-vans-item-photo/your-vans-item-photo.component';
 import {ErrorPage} from '../pages/error/error.component';
-import {LoginPage} from '../pages/login/login.component';
+import {LoginPage, loader as loginLoader} from '../pages/login/login.component';
+import {requireAuth} from '../utils/requireAuth';
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +50,7 @@ export const router = createBrowserRouter([
       {
         path: 'login',
         element: <LoginPage />,
+        loader: loginLoader,
       },
       {
         path: 'vans/:id',
@@ -51,30 +64,22 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: <Dashboard />,
-            loader: async () => {
-              return null;
-            },
+            loader: async () => await requireAuth(),
           },
           {
             path: 'income',
             element: <Income />,
-            loader: async () => {
-              return null;
-            },
+            loader: async () => await requireAuth(),
           },
           {
             path: 'your-vans',
             element: <YourVans />,
-            loader: async () => {
-              return null;
-            },
+            loader: yourVansLoader,
           },
           {
             path: 'your-vans/:id',
             element: <DetailsVans />,
-            loader: async () => {
-              return null;
-            },
+            loader: detailsVansLoader,
             children: [
               {
                 index: true,

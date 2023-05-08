@@ -1,26 +1,57 @@
-import {NavLink, Outlet, useParams} from 'react-router-dom';
+import {
+  NavLink,
+  Outlet,
+  useParams,
+  Params,
+  LoaderFunction,
+  useLoaderData,
+} from 'react-router-dom';
 import styled from './details-van.module.scss';
 import {useFetch} from '../../hooks/useFetch';
 import {useState, useEffect} from 'react';
 import {VanType} from '../../types/vanType';
 import {BackButton} from '../../components/back-button/back-button.component';
 import {useNavActiveClass} from '../../hooks/useNavActiveClass';
+import {requireAuth} from '../../utils/requireAuth';
+import {redirect} from '../../utils/mutateResponse';
 
-const API_LINK = '/api/host/your-vans';
+const fetchData = async (id: string) => {
+  const [getData] = useFetch();
+  const vansData = await getData<{vans: VanType[]}>(
+    `/api/host/your-vans/${id}`
+  );
+  return vansData.vans;
+};
+
+type loaderProps = {
+  params: Params<string>;
+};
+
+export const loader: LoaderFunction = async ({params}: loaderProps) => {
+  if (!params.id) {
+    return;
+  }
+
+  try {
+    const x = await requireAuth();
+    if (x?.status === 302) {
+      throw redirect('/login');
+    }
+    console.log(x);
+    return await fetchData(params.id);
+  } catch (err) {
+    const x = await requireAuth();
+    if (x?.status === 302) {
+      throw redirect('/login');
+    }
+    console.log(x);
+    return await fetchData(params.id);
+  }
+};
 
 export const DetailsVans = () => {
-  const {id} = useParams();
-  const [van, setVan] = useState<VanType | null>(null);
-  const [getData] = useFetch();
+  const van = useLoaderData() as VanType;
   const [activeClassName] = useNavActiveClass(styled);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const vansData = await getData<{vans: VanType}>(`${API_LINK}/${id}`);
-      setVan({...vansData.vans});
-    };
-    fetchData();
-  }, []);
 
   return (
     <div>
