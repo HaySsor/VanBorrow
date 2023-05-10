@@ -15,21 +15,12 @@ const fetchData = async () => {
   return vansData.vans;
 };
 
-export const loader = async () => {
+export const loader = async ({request}: {request: Request}) => {
   try {
-    const x = await requireAuth();
-    if (x?.status === 302) {
-      throw redirect('/login');
-    }
-    console.log(x);
+    await requireAuth(request);
     return await fetchData();
   } catch (err) {
-    const x = await requireAuth();
-    if (x?.status === 302) {
-      throw redirect('/login');
-    }
-    console.log(x);
-    return await fetchData();
+    await requireAuth(request);
   }
 };
 

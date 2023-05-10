@@ -25,22 +25,26 @@ const fetchData = async (id: string) => {
 
 type loaderProps = {
   params: Params<string>;
+  request: Request;
 };
 
-export const loader: LoaderFunction = async ({params}: loaderProps) => {
+export const loader: LoaderFunction = async ({
+  params,
+  request,
+}: loaderProps) => {
   if (!params.id) {
     return;
   }
 
   try {
-    const x = await requireAuth();
+    const x = await requireAuth(request);
     if (x?.status === 302) {
       throw redirect('/login');
     }
     console.log(x);
     return await fetchData(params.id);
   } catch (err) {
-    const x = await requireAuth();
+    const x = await requireAuth(request);
     if (x?.status === 302) {
       throw redirect('/login');
     }

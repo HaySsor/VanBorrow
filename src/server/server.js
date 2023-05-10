@@ -32,12 +32,12 @@ createServer({
       return schema.vans.find(id)
     })
 
-    this.get("/host/vans", (schema, request) => {
+    this.get("/host/your-vans", (schema, request) => {
       // Hard-code the hostId for now
       return schema.vans.where({ hostId: "123" })
     })
 
-    this.get("/host/vans/:id", (schema, request) => {
+    this.get("/host/your-vans/:id", (schema, request) => {
       // Hard-code the hostId for now
       const id = request.params.id
       return schema.vans.findBy({ id, hostId: "123" })

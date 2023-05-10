@@ -1,8 +1,12 @@
-import {ChangeEvent, useState} from 'react';
 import styled from './login.module.scss';
-import {useLoaderData} from 'react-router-dom';
-import type {userType} from '../../types/userType';
+import {
+  useLoaderData,
+  Form,
+  useActionData,
+  useNavigation,
+} from 'react-router-dom';
 import {usePostLoginData} from '../../hooks/usePostLoginData';
+import {redirect} from '../../utils/mutateResponse';
 
 export const loader = ({request}: {request: Request}) => {
   const url = new URL(request.url);
@@ -10,27 +14,29 @@ export const loader = ({request}: {request: Request}) => {
   return searchTerm;
 };
 
+export const action = async ({request}: {request: Request}) => {
+  const formData = await request.formData();
+  const email = formData.get('email') as string;
+  const password = formData.get('password') as string;
+
+  const pathname =
+    new URL(request.url).searchParams.get('redirectTo') || '/host';
+
+   console.log(new URL(request.url).searchParams.get('redirectTo'))
+  try {
+    await usePostLoginData({email, password});
+    localStorage.setItem('loggedIn', 'true');
+    return redirect(pathname);
+  } catch (error: any) {
+    return error.message;
+  }
+};
+
 export const LoginPage = () => {
-  const [loginFormData, setLoginFormData] = useState<userType>({
-    email: '',
-    password: '',
-  });
   const message = (useLoaderData() as string) || null;
-
-  const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const user = await usePostLoginData(loginFormData);
-    console.log(user);
-  };
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = e.target;
-    setLoginFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
+  const errorMessage = useActionData() as string;
+  const navigation = useNavigation();
+  const {state} = navigation;
   return (
     <div className={styled.loginContainer}>
       <h2 className={styled.loginTitle}>Sign in to your account</h2>
@@ -39,23 +45,20 @@ export const LoginPage = () => {
           <p className={styled.alert}>{message}</p>
         </div>
       )}
-      <form onSubmit={handleSubmit} className={styled.loginForm}>
-        <input
-          name='email'
-          onChange={handleChange}
-          type='email'
-          placeholder='Email address'
-          value={loginFormData.email}
-        />
-        <input
-          name='password'
-          onChange={handleChange}
-          type='password'
-          placeholder='Password'
-          value={loginFormData.password}
-        />
-        <button>Log in</button>
-      </form>
+      {errorMessage && (
+        <div>
+          <p className={styled.alert}>{errorMessage}</p>
+        </div>
+      )}
+      <Form method='post' className={styled.loginForm} replace>
+        <input name='email' type='email' placeholder='Email address' />
+        <input name='password' type='password' placeholder='Password' />
+        <button disabled={state !== 'idle'}>
+          {state !== 'idle'
+            ? state.charAt(0).toUpperCase() + state.slice(1) + '...'
+            : 'Log in'}
+        </button>
+      </Form>
     </div>
   );
 };

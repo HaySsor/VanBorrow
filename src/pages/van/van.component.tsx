@@ -33,6 +33,7 @@ export const loader: LoaderFunction = async ({params}: loaderProps) => {
 export const VanPage = () => {
   const {state} = useLocation();
   const van = useLoaderData() as VanType;
+  console.log(state);
 
   const search = state?.search || '';
   const type = state?.type || 'all';

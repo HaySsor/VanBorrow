@@ -25,7 +25,11 @@ import {YourVansItemInfo} from '../components/your-vans-item-info/your-vans-item
 import {YourVansItemPrice} from '../components/your-vans-item-price/your-vans-item-price.component';
 import {YourVansItemPhoto} from '../components/your-vans-item-photo/your-vans-item-photo.component';
 import {ErrorPage} from '../pages/error/error.component';
-import {LoginPage, loader as loginLoader} from '../pages/login/login.component';
+import {
+  LoginPage,
+  loader as loginLoader,
+  action as loginAction,
+} from '../pages/login/login.component';
 import {requireAuth} from '../utils/requireAuth';
 
 export const router = createBrowserRouter([
@@ -51,6 +55,7 @@ export const router = createBrowserRouter([
         path: 'login',
         element: <LoginPage />,
         loader: loginLoader,
+        action: loginAction,
       },
       {
         path: 'vans/:id',
@@ -64,12 +69,14 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: <Dashboard />,
-            loader: async () => await requireAuth(),
+            loader: async ({request}: {request: Request}) =>
+              await requireAuth(request),
           },
           {
             path: 'income',
             element: <Income />,
-            loader: async () => await requireAuth(),
+            loader: async ({request}: {request: Request}) =>
+              await requireAuth(request),
           },
           {
             path: 'your-vans',
@@ -84,23 +91,20 @@ export const router = createBrowserRouter([
               {
                 index: true,
                 element: <YourVansItemInfo />,
-                loader: async () => {
-                  return null;
-                },
+                loader: async ({request}: {request: Request}) =>
+                  await requireAuth(request),
               },
               {
                 path: 'price',
                 element: <YourVansItemPrice />,
-                loader: async () => {
-                  return null;
-                },
+                loader: async ({request}: {request: Request}) =>
+                  await requireAuth(request),
               },
               {
                 path: 'photo',
                 element: <YourVansItemPhoto />,
-                loader: async () => {
-                  return null;
-                },
+                loader: async ({request}: {request: Request}) =>
+                  await requireAuth(request),
               },
             ],
           },
