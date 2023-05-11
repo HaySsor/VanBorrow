@@ -6,7 +6,7 @@ import {
   useNavigation,
 } from 'react-router-dom';
 import {usePostLoginData} from '../../hooks/usePostLoginData';
-import {redirect} from '../../utils/mutateResponse';
+import {redirect} from 'react-router-dom';
 
 export const loader = ({request}: {request: Request}) => {
   const url = new URL(request.url);
@@ -22,7 +22,7 @@ export const action = async ({request}: {request: Request}) => {
   const pathname =
     new URL(request.url).searchParams.get('redirectTo') || '/host';
 
-   console.log(new URL(request.url).searchParams.get('redirectTo'))
+  console.log(new URL(request.url).searchParams.get('redirectTo'));
   try {
     await usePostLoginData({email, password});
     localStorage.setItem('loggedIn', 'true');
@@ -51,8 +51,18 @@ export const LoginPage = () => {
         </div>
       )}
       <Form method='post' className={styled.loginForm} replace>
-        <input name='email' type='email' value='test@test.com' placeholder='Email address' />
-        <input name='password' type='password' value='test' placeholder='Password' />
+        <input
+          name='email'
+          type='email'
+          value='test@test.com'
+          placeholder='Email address'
+        />
+        <input
+          name='password'
+          type='password'
+          value='test'
+          placeholder='Password'
+        />
         <button disabled={state !== 'idle'}>
           {state !== 'idle'
             ? state.charAt(0).toUpperCase() + state.slice(1) + '...'
