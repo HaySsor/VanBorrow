@@ -5,18 +5,13 @@ import {useFetch} from '../../hooks/useFetch';
 import {YourVansItem} from '../../components/your-vans-item/your-vans-item.component';
 import {useLoaderData, defer, Await} from 'react-router-dom';
 import {requireAuth} from '../../utils/requireAuth';
+import {fetchVans} from '../../utils/fetchVans';
 
 const API_LINK = '/api/host/your-vans';
 
-const fetchData = async () => {
-  const [getData] = useFetch();
-  const vansData = await getData<{vans: VanType[]}>(API_LINK);
-  return vansData.vans;
-};
-
 export const loader = async ({request}: {request: Request}) => {
   await requireAuth(request);
-  return defer({vans: fetchData()});
+  return defer({vans: fetchVans(API_LINK)});
 };
 
 export const YourVans = () => {

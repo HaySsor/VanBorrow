@@ -51,8 +51,8 @@ export const LoginPage = () => {
         </div>
       )}
       <Form method='post' className={styled.loginForm} replace>
-        <input name='email' type='email' placeholder='Email address' />
-        <input name='password' type='password' placeholder='Password' />
+        <input name='email' type='email' value='test@test.com' placeholder='Email address' />
+        <input name='password' type='password' value='test' placeholder='Password' />
         <button disabled={state !== 'idle'}>
           {state !== 'idle'
             ? state.charAt(0).toUpperCase() + state.slice(1) + '...'

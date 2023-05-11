@@ -7,9 +7,11 @@ import {Suspense} from 'react';
 import {fetchVans} from '../../utils/fetchVans';
 import {requireAuth} from '../../utils/requireAuth';
 
+const API_LINK = '/api/vans';
+
 export async function loader({request}: {request: Request}) {
   await requireAuth(request);
-  return defer({vans: fetchVans()});
+  return defer({vans: fetchVans(API_LINK)});
 }
 
 export const VansPage = () => {

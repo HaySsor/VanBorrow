@@ -4,18 +4,13 @@ import {useFetch} from '../../hooks/useFetch';
 import {VanType} from '../../types/vanType';
 import {requireAuth} from '../../utils/requireAuth';
 import styled from './dashboard.module.scss';
+import {fetchVans} from '../../utils/fetchVans';
 
 const API_LINK = '/api/host/your-vans';
 
-const fetchData = async () => {
-  const [getData] = useFetch();
-  const vansData = await getData<{vans: VanType[]}>(API_LINK);
-  return vansData.vans;
-};
-
 export async function loader({request}: {request: Request}) {
-  await requireAuth(request);
-  return defer({vans: fetchData()});
+    await requireAuth(request);
+    return defer({vans: fetchVans(API_LINK)});
 }
 
 export const Dashboard = () => {

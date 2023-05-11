@@ -14,14 +14,7 @@ import {BackButton} from '../../components/back-button/back-button.component';
 import {useNavActiveClass} from '../../hooks/useNavActiveClass';
 import {requireAuth} from '../../utils/requireAuth';
 import {Suspense} from 'react';
-
-const fetchData = async (id: string) => {
-  const [getData] = useFetch();
-  const vansData = await getData<{vans: VanType[]}>(
-    `/api/host/your-vans/${id}`
-  );
-  return vansData.vans;
-};
+import {fetchVans} from '../../utils/fetchVans';
 
 type loaderProps = {
   params: Params<string>;
@@ -36,7 +29,7 @@ export const loader: LoaderFunction = async ({
     return;
   }
   await requireAuth(request);
-  return defer({van: fetchData(params.id)});
+  return defer({van: fetchVans('/api/host/your-vans', params.id)});
 };
 
 export const DetailsVans = () => {
