@@ -5,7 +5,7 @@ export async function requireAuth(request: Request) {
   const pathname = new URL(request.url).pathname;
 
   if (userIsLogged === null || userIsLogged === 'false') {
-    console.log('tu')
+    console.log('tu');
     return redirect(
       `/login?message=Your need login first&redirectTo=${pathname}`
     );

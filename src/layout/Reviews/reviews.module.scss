@@ -1,0 +1,60 @@
+.hostReviews {
+  padding-inline: 26px;
+  color: #161616;
+  .graph {
+    width: 100%;
+    max-width: 500px;
+  }
+  .topText {
+    display: flex;
+    align-items: center;
+    margin-bottom: 32px;
+    h2 {
+      font-weight: 700;
+      font-size: 32px;
+      margin: 0;
+      margin-right: 20px;
+      margin-top: 20px;
+    }
+    p {
+      margin: 0;
+      color: #4d4d4d;
+      span {
+        text-decoration: underline;
+        font-weight: bold;
+      }
+    }
+  }
+  .hostReviews {
+    font-size: 1.5rem;
+    margin-top: 15px;
+    img {
+      margin-bottom: 36px;
+    }
+    .review {
+      margin-block: 25px;
+    }
+    .info {
+      display: flex;
+    }
+    .name {
+      color: #161616;
+      margin-right: 10px;
+      font-weight: 600;
+    }
+    .date {
+      color: #8c8c8c;
+    }
+    .hostReviews {
+      hr {
+        background-color: #c7c7c7;
+        height: 1px;
+        border: 0;
+      }
+    }
+    .reviewStar {
+      color: #ff8c38;
+      margin-right: 5px;
+    }
+  }
+}

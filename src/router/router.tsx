@@ -10,7 +10,7 @@ import {HomePage} from '../pages/home/home.component';
 import {VansPage, loader as vansLoader} from '../pages/vans/vans.component';
 import {VanPage, loader as vanLoader} from '../pages/van/van.component';
 import {HostPage} from '../pages/host/host.component';
-import {Dashboard} from '../layout/dashboard/dashboard.component';
+import {Dashboard , loader as dashboardLoader} from '../layout/dashboard/dashboard.component';
 import {Income} from '../layout/income/income.component';
 import {Reviews} from '../layout/Reviews/reviews.component';
 import {
@@ -36,7 +36,6 @@ export const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -49,6 +48,7 @@ export const router = createBrowserRouter([
       {
         path: 'vans',
         element: <VansPage />,
+        errorElement: <ErrorPage />,
         loader: vansLoader,
       },
       {
@@ -69,8 +69,7 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: <Dashboard />,
-            loader: async ({request}: {request: Request}) =>
-              await requireAuth(request),
+            loader:dashboardLoader,
           },
           {
             path: 'income',

@@ -4,21 +4,16 @@ import type {VanType} from '../../types/vanType';
 import {VanListItem} from '../../components/van-list-item/van-list-item.component';
 import {useLoaderData, useSearchParams, defer, Await} from 'react-router-dom';
 import {Suspense} from 'react';
+import {fetchVans} from '../../utils/fetchVans';
+import {requireAuth} from '../../utils/requireAuth';
 
-const API_LINK = '/api/vans';
-
-const fetchData = async () => {
-  const [getData] = useFetch();
-  const vansData = await getData<{vans: VanType[]}>(API_LINK);
-  return vansData.vans;
-};
-
-export const loader = async () => {
-  return defer({vans: await fetchData()});
-};
+export async function loader({request}: {request: Request}) {
+  await requireAuth(request);
+  return defer({vans: fetchVans()});
+}
 
 export const VansPage = () => {
-  const loaderData = useLoaderData() as {vans: Promise<VanType[]>};
+  const dataPromise = useLoaderData() as {vans: Promise<VanType[]>};
   const [searchParams, setSearchParams] = useSearchParams();
   const typeFilter = searchParams.get('type');
 
@@ -36,7 +31,7 @@ export const VansPage = () => {
   return (
     <div className={styled.vanListContainer}>
       <Suspense fallback={<h2>Loading ...</h2>}>
-        <Await resolve={loaderData.vans}>
+        <Await resolve={dataPromise.vans}>
           {(vanList: VanType[]) => {
             const FilterVanList = typeFilter
               ? vanList.filter((van) => van.type === typeFilter)
