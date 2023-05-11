@@ -1,19 +1,16 @@
 import {
   NavLink,
   Outlet,
-  useParams,
   Params,
   LoaderFunction,
   useLoaderData,
 } from 'react-router-dom';
 import styled from './details-van.module.scss';
 import {useFetch} from '../../hooks/useFetch';
-import {useState, useEffect} from 'react';
 import {VanType} from '../../types/vanType';
 import {BackButton} from '../../components/back-button/back-button.component';
 import {useNavActiveClass} from '../../hooks/useNavActiveClass';
 import {requireAuth} from '../../utils/requireAuth';
-import {redirect} from '../../utils/mutateResponse';
 
 const fetchData = async (id: string) => {
   const [getData] = useFetch();
@@ -37,19 +34,10 @@ export const loader: LoaderFunction = async ({
   }
 
   try {
-    const x = await requireAuth(request);
-    if (x?.status === 302) {
-      throw redirect('/login');
-    }
-    console.log(x);
+    await requireAuth(request);
     return await fetchData(params.id);
   } catch (err) {
-    const x = await requireAuth(request);
-    if (x?.status === 302) {
-      throw redirect('/login');
-    }
-    console.log(x);
-    return await fetchData(params.id);
+    await requireAuth(request);
   }
 };
 

@@ -1,9 +1,9 @@
 import styled from './vans.module.scss';
-import {useEffect, useState} from 'react';
 import {useFetch} from '../../hooks/useFetch';
 import type {VanType} from '../../types/vanType';
 import {VanListItem} from '../../components/van-list-item/van-list-item.component';
-import {useLoaderData, useSearchParams} from 'react-router-dom';
+import {useLoaderData, useSearchParams, defer, Await} from 'react-router-dom';
+import {Suspense} from 'react';
 
 const API_LINK = '/api/vans';
 
@@ -14,21 +14,13 @@ const fetchData = async () => {
 };
 
 export const loader = async () => {
-  try {
-    return await fetchData();
-  } catch (err) {
-    return await fetchData();
-  }
+  return defer({vans: await fetchData()});
 };
 
 export const VansPage = () => {
-  const vanList = useLoaderData() as VanType[];
+  const loaderData = useLoaderData() as {vans: Promise<VanType[]>};
   const [searchParams, setSearchParams] = useSearchParams();
   const typeFilter = searchParams.get('type');
-
-  const FilterVanList = typeFilter
-    ? vanList.filter((van) => van.type === typeFilter)
-    : vanList;
 
   const HandleSearchParams = (key: string, value: string | null) => {
     setSearchParams((prevParams) => {
@@ -43,43 +35,57 @@ export const VansPage = () => {
 
   return (
     <div className={styled.vanListContainer}>
-      <div className={styled.vanListFilterButtons}>
-        <button
-          className={styled.simple}
-          onClick={() => HandleSearchParams('type', 'simple')}>
-          Simple
-        </button>
-        <button
-          className={styled.rugged}
-          onClick={() => HandleSearchParams('type', 'rugged')}>
-          Rugged
-        </button>
-        <button
-          className={styled.luxury}
-          onClick={() => HandleSearchParams('type', 'luxury')}>
-          Luxury
-        </button>
-        {typeFilter ? (
-          <button
-            className={styled.clear}
-            onClick={() => HandleSearchParams('type', null)}>
-            Clear
-          </button>
-        ) : null}
-      </div>
-      <div className={styled.vanList}>
-        {FilterVanList &&
-          FilterVanList.map((van) => {
+      <Suspense fallback={<h2>Loading ...</h2>}>
+        <Await resolve={loaderData.vans}>
+          {(vanList: VanType[]) => {
+            const FilterVanList = typeFilter
+              ? vanList.filter((van) => van.type === typeFilter)
+              : vanList;
+
             return (
-              <VanListItem
-                key={van.id}
-                van={van}
-                searchParams={searchParams}
-                typeFilter={typeFilter}
-              />
+              <>
+                <div className={styled.vanListFilterButtons}>
+                  <button
+                    className={styled.simple}
+                    onClick={() => HandleSearchParams('type', 'simple')}>
+                    Simple
+                  </button>
+                  <button
+                    className={styled.rugged}
+                    onClick={() => HandleSearchParams('type', 'rugged')}>
+                    Rugged
+                  </button>
+                  <button
+                    className={styled.luxury}
+                    onClick={() => HandleSearchParams('type', 'luxury')}>
+                    Luxury
+                  </button>
+                  {typeFilter ? (
+                    <button
+                      className={styled.clear}
+                      onClick={() => HandleSearchParams('type', null)}>
+                      Clear
+                    </button>
+                  ) : null}
+                </div>
+                <div className={styled.vanList}>
+                  {FilterVanList &&
+                    FilterVanList.map((van) => {
+                      return (
+                        <VanListItem
+                          key={van.id}
+                          van={van}
+                          searchParams={searchParams}
+                          typeFilter={typeFilter}
+                        />
+                      );
+                    })}
+                </div>
+              </>
             );
-          })}
-      </div>
+          }}
+        </Await>
+      </Suspense>
     </div>
   );
 };
