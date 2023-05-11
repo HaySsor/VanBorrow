@@ -1,4 +1,5 @@
-import {redirect} from './mutateResponse';
+// import {redirect} from './mutateResponse';
+import {redirect} from 'react-router-dom';
 
 export async function requireAuth(request: Request) {
   const userIsLogged = localStorage.getItem('loggedIn');
@@ -6,7 +7,7 @@ export async function requireAuth(request: Request) {
 
   console.log(userIsLogged);
   if (userIsLogged === null || userIsLogged === 'false') {
-    throw redirect(
+    return redirect(
       `/login?message=Your need login first&redirectTo=${pathname}`
     );
   }
